@@ -1,40 +1,63 @@
 <template>
-    <h2>Блог</h2>
+  <h2>Блог</h2>
 
-    <main>
-      <article v-for="post  in posts" :key="post.id">
+  <main>
+    <div class="posts">
+      <article v-for="(post, index) in posts" :key="post.id">
         <h3>{{ post.title }}</h3>
-        <img :src=base_url+post.img.url :alt=post.img.alternativeText>
+        <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
         <p>{{ post.desc }}</p>
-        <NuxtLink to="#">Подробнее</NuxtLink>
+        <NuxtLink :to="'/post/' + index">Подробнее</NuxtLink>
       </article>
-    </main>
+    </div>
+  </main>
 
 </template>
 
 <script setup>
-  const api = await $fetch('http://localhost:1337/api/posts?populate=*')
-  const posts = api.data
+const api = await $fetch('http://localhost:1337/api/posts?populate=*')
+const posts = api.data
 
-  const base_url = "http://localhost:1337"
+const base_url = "http://localhost:1337"
 </script>
 
 <style scoped>
-  main {
-    display: flex;
-    gap: 10px;
-  }
+.posts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
 
-  article {
-    background-color: #f5f5f5;
-    padding: 10px;
-    width: 300px;
-  }
+@media screen and (max-width: 1024px) {
+  .posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+}
 
-  article img {
-    width: 100%;
-  }
+article {
+  background-color: #f5f5f5;
+  padding: 10px;
+
+  display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+}
+
+article img {
+  width: 100%;
+}
+
+article p {
+  height: 100px;
+}
+
+article a {
+  display: block;
+}
 </style>
+
 
 
 
