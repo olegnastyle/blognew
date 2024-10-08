@@ -48,4 +48,9 @@ const mark = markdown.render(post.body);
 
 const base_url = 'http://localhost:1337'
 
+const apiConfig = await $fetch(`${base_url}/api/config?populate=*`)
+const config = apiConfig.data
+useHead({
+    title: `${post.title} - ${config.title}`
+})
 </script>
