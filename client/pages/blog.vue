@@ -7,7 +7,7 @@
         <h3>{{ post.title }}</h3>
         <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
         <p>{{ post.desc }}</p>
-        <NuxtLink :to="'/post/' + index">Подробнее</NuxtLink>
+        <NuxtLink :to="'/post/' + post.documentId">Подробнее</NuxtLink>
       </article>
     </div>
   </main>
