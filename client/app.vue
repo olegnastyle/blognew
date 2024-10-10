@@ -1,4 +1,5 @@
 <template>
+  <NuxtLoadingIndicator duration="5000" />
   <Navbar />
   <NuxtPage />
   <Footer />

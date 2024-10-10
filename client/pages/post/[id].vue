@@ -10,12 +10,23 @@
     <!-- тело статьи -->
     <main>
         <h1>{{ post.title }}</h1>
+        <!-- <p>Дата публикации: <span v-html="post.createdAt"></span></p> -->
         <img :src=base_url+post.img.url :alt=post.img.alternativeText>
         <div v-html="mark"></div>
     </main>
 </template>
 
 <style scoped>
+    main {
+        padding: 40px;
+        font-size: 24px;
+    }
+
+    main img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
     li::before {
         content: ">>";
         margin-right: 10px;
@@ -37,8 +48,6 @@
 <script setup>
 import MarkdownIt from "markdown-it";
 const markdown = new MarkdownIt();
-
-
 
 const { id } = useRoute().params
 

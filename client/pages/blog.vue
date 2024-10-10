@@ -2,14 +2,12 @@
   <h2>Блог</h2>
 
   <main>
-    <div class="posts">
-      <article v-for="(post, index) in posts" :key="post.id">
-        <h3>{{ post.title }}</h3>
-        <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
-        <p>{{ post.desc }}</p>
-        <NuxtLink :to="'/post/' + post.documentId">Подробнее</NuxtLink>
-      </article>
-    </div>
+    <article v-for="(post, index) in posts" :key="post.id">
+      <h3>{{ post.title }}</h3>
+      <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
+      <p>{{ post.desc }}</p>
+      <NuxtLink :to="'/post/' + post.documentId">Подробнее</NuxtLink>
+    </article>
   </main>
 
 </template>
@@ -22,39 +20,62 @@ const base_url = "http://localhost:1337"
 </script>
 
 <style scoped>
-.posts {
+main {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: minmax(100px, auto);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 40px;
+  padding: 40px;
 }
 
-@media screen and (max-width: 1024px) {
-  .posts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 }
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    grid-template-columns: 1fr;
+  }
 }
 
 article {
   background-color: #f5f5f5;
   padding: 10px;
-
-  display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+  border-radius: 10px;
+  height: max-content;
 }
 
 article img {
+  border-radius: 10px;
   width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+article h3 {
+  height: 70px;
 }
 
 article p {
-  height: 100px;
+  height: 56px;
 }
 
-article a {
-  display: block;
+article p,
+article h3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-wrap: wrap;
 }
 </style>
 
