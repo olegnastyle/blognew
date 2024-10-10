@@ -3,24 +3,48 @@
     <nav>
         <ul>
             <li><NuxtLink to="/blog">Блог</NuxtLink></li>
-            <li><NuxtLink :to="'/category/' + post.categories[0].documentId">{{ post.categories[0].title }}</NuxtLink></li>
+            <li><NuxtLink :style="'background:'+post.categories[0].bg" :to="'/category/' + post.categories[0].documentId">{{ post.categories[0].title }}</NuxtLink></li>
             <li><strong>{{ post.title }}</strong></li>
         </ul>
     </nav>
     <!-- тело статьи -->
     <main>
         <h1>{{ post.title }}</h1>
-        <!-- <p>Дата публикации: <span v-html="post.createdAt"></span></p> -->
+        <p class="date">Дата публикации: <span>{{ post.publishedAt }}</span></p>
         <img :src=base_url+post.img.url :alt=post.img.alternativeText>
         <div v-html="mark"></div>
     </main>
 </template>
 
 <style scoped>
+    nav {
+        margin: 25px 0;
+    }
+
+    nav ul li:nth-child(2) a {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+
+    }
+    .date {
+        display: flex;
+        align-items: start;
+        gap: 20px;  
+    }
+
+    .date span {
+        display: inline-block;
+        text-wrap: nowrap;
+        width: 112px;
+        overflow: hidden;
+    }
     main {
         padding: 40px;
         font-size: 24px;
     }
+
+
 
     main img {
         width: 100%;
