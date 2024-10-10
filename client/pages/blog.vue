@@ -56,17 +56,16 @@ main {
 }
 
 article {
-  border: solid 1px #f5f5f5;
-  background-color: #f5f5f5;
+  /* border: solid 1px #f5f5f5; */
   padding: 10px;
   border-radius: 10px;
   height: max-content;
   transition: all .1s linear;
 }
 
-article:hover {
+/* article:hover {
   border-color: brown;
-}
+} */
 
 article h3 {
   height: 70px;
@@ -104,7 +103,7 @@ article h3 {
   right: 0;
   height: 60px;
   width: 60px;
-  background-color: #f5f5f5;
+  background-color: white;
   display: block;
   border-radius: 30px 0 0 0;
 
