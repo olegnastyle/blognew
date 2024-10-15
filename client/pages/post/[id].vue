@@ -44,13 +44,12 @@
         font-size: 24px;
     }
 
-
-
     main img {
         width: 100%;
         height: 320px;
         object-fit: cover;
     }
+    
     li::before {
         content: ">>";
         margin-right: 10px;

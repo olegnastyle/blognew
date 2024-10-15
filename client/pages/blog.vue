@@ -5,7 +5,9 @@
     <article v-for="(post, index) in posts" :key="post.id">
       <h3>{{ post.title }}</h3>
       <div class="link">
-        <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
+        <div class="img">
+          <img :src="base_url + post.img.url" :alt=post.img.alternativeText>
+        </div>
         <NuxtLink :style="'background:'+post.categories[0].bg" :to="'/post/' + post.documentId">↗</NuxtLink>
       </div>
       <p>{{ post.desc }}</p>
@@ -35,6 +37,8 @@ main {
   grid-template-rows: repeat(4, 1fr);
   gap: 40px;
   padding: 40px;
+
+
 }
 
 @media (max-width: 1024px) {
@@ -56,16 +60,15 @@ main {
 }
 
 article {
-  /* border: solid 1px #f5f5f5; */
+  cursor: default;
   padding: 10px;
   border-radius: 10px;
   height: max-content;
   transition: all .1s linear;
+  overflow: hidden;
 }
 
-/* article:hover {
-  border-color: brown;
-} */
+
 
 article h3 {
   height: 70px;
@@ -84,9 +87,29 @@ article h3 {
   text-wrap: wrap;
 }
 
+article:hover {
+  background-color: #f1f1f1;
+}
+
+
+
+article:hover .link::after {
+  background-color: #f1f1f1;
+  transition-duration: 0;
+}
+
+article:hover a {
+  filter: brightness(1.2);
+}
 
 .link {
   position: relative;
+}
+
+.img {
+  overflow: hidden;
+  border-radius: 10px;
+  height: 150px;
 }
 
 .link img {
@@ -94,20 +117,14 @@ article h3 {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  transition: transform .1s linear;
 }
 
-.link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 60px;
-  width: 60px;
-  background-color: white;
-  display: block;
-  border-radius: 30px 0 0 0;
-
+article:hover img {
+  transform: scale(1.2)
+  
 }
+
 .link a {
   border-radius: 50%;
   color: black;
@@ -124,6 +141,19 @@ article h3 {
   right: 0; 
   z-index: 10;
 }
+
+.link::after {
+   content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  display: block;
+  border-radius: 30px 0 0 0;
+}
+
 
 .tag {
   list-style: none;

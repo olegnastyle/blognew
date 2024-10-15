@@ -1,5 +1,5 @@
 <template>
-  <NuxtLoadingIndicator duration="5000" />
+  <NuxtLoadingIndicator throttle="0" />
   <Navbar />
   <NuxtPage />
   <Footer />
@@ -23,15 +23,21 @@
 </script>
 
 <style>
-* {
+/* * {
   margin: 0;
-}
+} */
 
 html, body, #__nuxt {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+body {
+  margin: 0;
+  /* background: linear-gradient(180deg, #00000025 0%, #000000 100%), url("https://i0.wp.com/www.funnyart.club/uploads/posts/2022-01/1641464486_63-www-funnyart-club-p-abstraktnie-sine-golubie-foni-63.jpg?ssl=1");
+  background-blend-mode: darken; */
 }
 
 main {
