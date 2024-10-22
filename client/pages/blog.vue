@@ -2,7 +2,7 @@
   <main>
     <h2>Блог</h2>
     <div class="articles">
-      <article v-for="(post, index) in posts" :key="post.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <article v-for="(post, index) in displayedPosts" :key="post.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <NuxtLink :to="'/post/' + post.documentId">
               <img class="rounded-t-lg" :src="base_url+post.img.url" :alt=post.img.alternativeText />
           </NuxtLink>
@@ -20,14 +20,22 @@
           </div>
       </article>
     </div>
-    <button type="button" class="w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Смотреть еще</button>
+    <button v-if="!(displayedPosts.length === posts.length)" @click="loadMore" type="button" class="w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Смотреть еще</button>
   </main>
 
 </template>
 
+
 <script setup>
-const api = await $fetch('http://localhost:1337/api/posts?pagination[pageSize]=3&populate=*')
+const api = await $fetch('http://localhost:1337/api/posts?populate=*')
 const posts = api.data
+
+
+const displayedPosts = ref(posts.slice(0, 1)); // Первые 3 поста
+
+const loadMore = () => {
+  displayedPosts.value = displayedPosts.value.concat(posts.slice(displayedPosts.value.length, displayedPosts.value.length + 1));
+};
 
 const base_url = "http://localhost:1337"
 </script>
