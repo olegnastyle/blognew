@@ -9,6 +9,7 @@
     </nav>
     <!-- тело статьи -->
     <main>
+        <Share />
         <h1>{{ post.title }}</h1>
         <p class="date">Дата публикации: <span>{{ post.publishedAt }}</span></p>
         <img :src=base_url+post.img.url :alt=post.img.alternativeText>
@@ -44,13 +45,12 @@
         font-size: 24px;
     }
 
-
-
     main img {
         width: 100%;
         height: 320px;
         object-fit: cover;
     }
+    
     li::before {
         content: ">>";
         margin-right: 10px;
