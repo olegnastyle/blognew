@@ -1,9 +1,9 @@
 <template>
   <main>
-    <h2>Блог</h2>
-    <div class="articles">
-      <article v-for="(post, index) in displayedPosts" :key="post.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <NuxtLink :to="'/post/' + post.documentId">
+    <h2 class="text-4xl font-extrabold my-4 dark:text-white">Блог</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mb-4">
+      <article v-for="post in displayedPosts" :key="post.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <NuxtLink class="block overflow-hidden" :to="'/post/' + post.documentId">
               <img class="rounded-t-lg" :src="base_url+post.img.url" :alt=post.img.alternativeText />
           </NuxtLink>
           <div class="p-5">
@@ -27,15 +27,9 @@
 
 
 <script setup>
+const base_url = "http://localhost:1337"
 const api = await $fetch('http://localhost:1337/api/posts?populate=*')
 const posts = api.data
-
-
-const displayedPosts = ref(posts.slice(0, 1)); // Первые 3 поста
-
-const loadMore = () => {
-  displayedPosts.value = displayedPosts.value.concat(posts.slice(displayedPosts.value.length, displayedPosts.value.length + 1));
-};
-
-const base_url = "http://localhost:1337"
+const displayedPosts = ref(posts.slice(0, 1)) // отображаем первые 12 статей
+const loadMore = () => displayedPosts.value = posts.slice(0, displayedPosts.value.length + 1)
 </script>
