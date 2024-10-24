@@ -41,10 +41,12 @@
                 </li>
             </ol>
         </nav>
-        <div class="h-80 rounded-2xl my-4 bg-fixed" :style="'background-image: url('+base_url+post.img.url+')'"></div>
-        <h1>{{ post.title }}</h1>
-        <p class="date">Дата публикации: <span>{{ post.publishedAt }}</span></p>
-        <div v-html="mark"></div>
+        <div class="ns_post">
+            <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" :style="'background-image: url('+base_url+post.img.url+')'"></div>
+            <h1>{{ post.title }}</h1>
+            <p class="date">Дата публикации: <span>{{ post.publishedAt }}</span></p>
+            <div v-html="mark"></div>
+        </div>
     </main>
 </template>
 
