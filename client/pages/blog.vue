@@ -30,6 +30,6 @@
 const base_url = "http://localhost:1337"
 const api = await $fetch('http://localhost:1337/api/posts?populate=*')
 const posts = api.data
-const displayedPosts = ref(posts.slice(0, 1)) // отображаем первые 12 статей
-const loadMore = () => displayedPosts.value = posts.slice(0, displayedPosts.value.length + 1)
+const displayedPosts = ref(posts.slice(0, 12)) // отображаем первые 12 статей
+const loadMore = () => displayedPosts.value = posts.slice(0, displayedPosts.value.length + 4)
 </script>
