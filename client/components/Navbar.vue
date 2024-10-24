@@ -87,5 +87,13 @@
 const route = useRoute()
 const isActive = (path) => route.path.split('/')[1] === path
 
-
+useHead({
+      script: [
+          {
+            src: 'https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js',
+            async: true,
+            defer: true
+          }
+      ]
+})
 </script>

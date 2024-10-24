@@ -44,7 +44,7 @@
         <div class="ns_post">
             <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" :style="'background-image: url('+base_url+post.img.url+')'"></div>
             <h1>{{ post.title }}</h1>
-            <p class="date">Дата публикации: <span>{{ post.publishedAt }}</span></p>
+            <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • 0 просмотров</p>
             <div v-html="mark"></div>
         </div>
     </main>
@@ -69,4 +69,28 @@ const config = apiConfig.data
 useHead({
     title: `${post.title} - ${config.title}`
 })
+
+// вычисляем дату создания статьи
+function formatDate(dateString) {
+  if (dateString) {
+    const date = new Date(Date.parse(dateString));
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const monthNames = [
+      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+    ];
+    return `${day} ${monthNames[month - 1]}`; // Используем `return` здесь
+  } else {
+    return '';
+  }
+}
+
+function ellipsis(text, maxLength) {
+  if (text.length > maxLength) {
+    return text.replace(new RegExp(`^(.{${maxLength}}).*`), '$1...');
+  } else {
+    return text;
+  }
+}
 </script>
