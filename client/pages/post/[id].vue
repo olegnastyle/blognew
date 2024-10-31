@@ -58,11 +58,11 @@ const markdown = new MarkdownIt();
 
 const { id } = useRoute().params
 
-const api = await $fetch(`http://76a67cc8ae3c.vps.myjino.ru/api/posts/${id}?populate=*`);
+const api = await $fetch(`http://localhost:1337/api/posts/${id}?populate=*`);
 const post = api.data;
 const mark = markdown.render(post.body);
 
-const base_url = 'http://76a67cc8ae3c.vps.myjino.ru'
+const base_url = 'http://localhost:1337'
 
 const apiConfig = await $fetch(`${base_url}/api/config?populate=*`)
 const config = apiConfig.data
