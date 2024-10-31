@@ -13,11 +13,11 @@ body,
 
 body {
     margin: 0;
+    padding: 0 1.5rem;
 }
 
 main {
     flex: 1 1 auto;
-    padding: 0 1rem;
 }
 
 article:hover img {
