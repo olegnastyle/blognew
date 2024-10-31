@@ -27,8 +27,8 @@
 
 
 <script setup>
-const base_url = "http://localhost:1337"
-const api = await $fetch('http://localhost:1337/api/posts?populate=*')
+const base_url = "http://76a67cc8ae3c.vps.myjino.ru"
+const api = await $fetch('http://76a67cc8ae3c.vps.myjino.ru/api/posts?populate=*')
 const posts = api.data
 const displayedPosts = ref(posts.slice(0, 12)) // отображаем первые 12 статей
 const loadMore = () => displayedPosts.value = posts.slice(0, displayedPosts.value.length + 4)
