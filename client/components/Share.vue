@@ -3,19 +3,19 @@
 </template>
 
 <script setup>
-// import('https://yastatic.net/share2/share.js')
+import('https://yastatic.net/share2/share.js')
 
-// useHead({
-//     head: {
-//         script: [
-//             {
-//                 src: 'https://yastatic.net/share2/share.js',
-//                 async: true,
-//                 defer: true
-//             }
-//         ]
-//     }
-// })
+useHead({
+    head: {
+        script: [
+            {
+                src: 'https://yastatic.net/share2/share.js',
+                async: true,
+                defer: true
+            }
+        ]
+    }
+})
 
 const loadShareScript = () => {
   useHead({
