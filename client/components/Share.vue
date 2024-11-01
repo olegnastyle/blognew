@@ -29,5 +29,5 @@ const loadShareScript = () => {
   })
 }
 
-onMounted(loadShareScript)
+onMounted(loadShareScript())
 </script>
