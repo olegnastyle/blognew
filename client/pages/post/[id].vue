@@ -44,6 +44,7 @@
             <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" :style="'background-image: url('+base_url+post.img.url+')'"></div>
             <h1 class="relative text-4xl">{{ post.title }} <Share /></h1>
             <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • {{ post.views }} {{ post.views }} просмотров</p>
+            <p>Тест</p>
             <div v-html="mark"></div>
         </div>
     </main>
