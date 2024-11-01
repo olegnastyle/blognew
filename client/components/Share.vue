@@ -1,5 +1,5 @@
 <template>
-    <div class="ya-share2" data-curtain data-services="messenger,vkontakte,odnoklassniki,telegram,viber,whatsapp"></div>
+    <div class="absolute -left-20 top-2 ya-share2" data-curtain data-services="messenger,vkontakte,odnoklassniki,telegram,viber,whatsapp"></div>
 </template>
 
 <script setup>
