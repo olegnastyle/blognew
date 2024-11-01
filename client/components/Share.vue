@@ -31,3 +31,18 @@ const loadShareScript = () => {
 
 onMounted(loadShareScript())
 </script>
+
+<style>
+.ya-share2__list {
+    display: flex !important;
+    flex-flow: column !important;
+}
+
+.ya-share2__list:hover li {
+    filter: grayscale(1);
+}
+
+.ya-share2__list li:hover {
+    filter: grayscale(0);
+}
+</style>
