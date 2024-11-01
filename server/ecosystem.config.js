@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'server',
+            name: 'server-dev',
             script: 'yarn',
             args: 'develop',
         },

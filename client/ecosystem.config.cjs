@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "nuxt-dev",
+            name: "client-dev",
             script: "npm",
             args: "run dev",
             env: {
@@ -9,7 +9,7 @@ module.exports = {
             }
         },
         {
-            name: "nuxt-prod",
+            name: "client-prod",
             script: "npm",
             args: "run start",
             env: {
