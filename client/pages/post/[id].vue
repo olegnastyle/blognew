@@ -21,11 +21,9 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <NuxtLink v-if="post.categories && post.categories.length > 0" 
-                            :to="'/category/' + post.categories[0].documentId"
+                        <NuxtLink :to="'/category/' + post.categories[0].documentId"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                            {{ post.categories[0].title }}
-                        </NuxtLink>
+                            {{ post.categories[0].title }}</NuxtLink>
                     </div>
                 </li>
                 <li aria-current="page">
@@ -43,11 +41,9 @@
             </ol>
         </nav>
         <div class="ns_post">
-            <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" 
-                :style="'background-image: url(' + (post.img ? base_url + post.img.url : '') + ')'">
-            </div>
+            <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" :style="'background-image: url('+base_url+post.img.url+')'"></div>
             <h1 class="relative text-4xl">{{ post.title }} <Share /></h1>
-            <p class="opacity-40">{{ post.publishedAt ? formatDate(post.publishedAt.substring(0, 10)) : 'Дата не доступна' }} • 0 просмотров</p>
+            <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • {{ post.views }} просмотров</p>
             <div v-html="mark"></div>
         </div>
     </main>
@@ -57,55 +53,23 @@
 
 <script setup>
 import MarkdownIt from "markdown-it";
-
 const markdown = new MarkdownIt();
-const route = useRoute();
-const base_url = 'http://76a67cc8ae3c.vps.myjino.ru';
-const post = ref({});
-const mark = ref('');
 
-// Функция для загрузки поста
-const fetchPost = async (id) => {
-  try {
-    const api = await $fetch(`${base_url}/api/posts/${id}?populate=*`);
-    post.value = api.data; // Сохраняем данные поста
-    mark.value = markdown.render(post.value.body); // Рендерим Markdown
-    await incrementViews(id); // Увеличиваем счетчик просмотров
-  } catch (error) {
-    console.error('Ошибка при загрузке поста:', error);
-  }
-};
+const { id } = useRoute().params
+const base_url = 'http://76a67cc8ae3c.vps.myjino.ru'
+const api = await $fetch(`http://76a67cc8ae3c.vps.myjino.ru/api/posts/${id}?populate=*`);
+const post = api.data;
+const mark = markdown.render(post.body);
 
-// Функция для увеличения количества просмотров
-const incrementViews = async (id) => {
-  try {
-    await $fetch(`${base_url}/api/posts/${id}`, {
-      method: 'PUT',
-      body: {
-        data: {
-          views: post.value.views + 1, // Увеличиваем количество просмотров на 1
-        },
-      },
-    });
-  } catch (error) {
-    console.error('Ошибка при обновлении просмотров:', error);
-  }
-};
 
-// Вызываем функции при монтировании компонента
-onMounted(() => {
-  const id = route.params.id; // Получаем id из параметров маршрута
-  fetchPost(id);
-});
 
-// Установка заголовка страницы
-const apiConfig = await $fetch(`${base_url}/api/config?populate=*`);
-const config = apiConfig.data;
+const apiConfig = await $fetch(`${base_url}/api/config?populate=*`)
+const config = apiConfig.data
 useHead({
-  title: `${post.value.title} - ${config.title}`
-});
+    title: `${post.title} - ${config.title}`
+})
 
-// Функция для форматирования даты
+// вычисляем дату создания статьи
 function formatDate(dateString) {
   if (dateString) {
     const date = new Date(Date.parse(dateString));
@@ -115,9 +79,17 @@ function formatDate(dateString) {
       'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
       'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
     ];
-    return `${day} ${monthNames[month - 1]}`; // Возвращаем отформатированную дату
+    return `${day} ${monthNames[month - 1]}`; // Используем `return` здесь
   } else {
     return '';
+  }
+}
+
+function ellipsis(text, maxLength) {
+  if (text.length > maxLength) {
+    return text.replace(new RegExp(`^(.{${maxLength}}).*`), '$1...');
+  } else {
+    return text;
   }
 }
 </script>
