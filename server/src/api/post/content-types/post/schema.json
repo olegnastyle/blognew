@@ -37,6 +37,11 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "posts"
+    },
+    "views": {
+      "type": "integer",
+      "default": 0,
+      "required": true
     }
   }
 }

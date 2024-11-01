@@ -43,7 +43,7 @@
         <div class="ns_post">
             <div class="h-80 rounded-2xl my-4 bg-fixed bg-[length:100%_600px]" :style="'background-image: url('+base_url+post.img.url+')'"></div>
             <h1 class="relative text-4xl">{{ post.title }} <Share /></h1>
-            <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • 0 просмотров</p>
+            <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • {{ post.views }} просмотров</p>
             <div v-html="mark"></div>
         </div>
     </main>
@@ -53,23 +53,55 @@
 
 <script setup>
 import MarkdownIt from "markdown-it";
+
 const markdown = new MarkdownIt();
+const route = useRoute();
+const base_url = 'http://76a67cc8ae3c.vps.myjino.ru';
+const post = ref({});
+const mark = ref('');
 
-const { id } = useRoute().params
+// Функция для загрузки поста
+const fetchPost = async (id) => {
+  try {
+    const api = await $fetch(`${base_url}/api/posts/${id}?populate=*`);
+    post.value = api.data; // Сохраняем данные поста
+    mark.value = markdown.render(post.value.body); // Рендерим Markdown
+    await incrementViews(id); // Увеличиваем счетчик просмотров
+  } catch (error) {
+    console.error('Ошибка при загрузке поста:', error);
+  }
+};
 
-const api = await $fetch(`http://76a67cc8ae3c.vps.myjino.ru/api/posts/${id}?populate=*`);
-const post = api.data;
-const mark = markdown.render(post.body);
+// Функция для увеличения количества просмотров
+const incrementViews = async (id) => {
+  try {
+    await $fetch(`${base_url}/api/posts/${id}`, {
+      method: 'PUT',
+      body: {
+        data: {
+          views: post.value.views + 1, // Увеличиваем количество просмотров на 1
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Ошибка при обновлении просмотров:', error);
+  }
+};
 
-const base_url = 'http://76a67cc8ae3c.vps.myjino.ru'
+// Вызываем функции при монтировании компонента
+onMounted(() => {
+  const id = route.params.id; // Получаем id из параметров маршрута
+  fetchPost(id);
+});
 
-const apiConfig = await $fetch(`${base_url}/api/config?populate=*`)
-const config = apiConfig.data
+// Установка заголовка страницы
+const apiConfig = await $fetch(`${base_url}/api/config?populate=*`);
+const config = apiConfig.data;
 useHead({
-    title: `${post.title} - ${config.title}`
-})
+  title: `${post.value.title} - ${config.title}`
+});
 
-// вычисляем дату создания статьи
+// Функция для форматирования даты
 function formatDate(dateString) {
   if (dateString) {
     const date = new Date(Date.parse(dateString));
@@ -79,17 +111,9 @@ function formatDate(dateString) {
       'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
       'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
     ];
-    return `${day} ${monthNames[month - 1]}`; // Используем `return` здесь
+    return `${day} ${monthNames[month - 1]}`; // Возвращаем отформатированную дату
   } else {
     return '';
-  }
-}
-
-function ellipsis(text, maxLength) {
-  if (text.length > maxLength) {
-    return text.replace(new RegExp(`^(.{${maxLength}}).*`), '$1...');
-  } else {
-    return text;
   }
 }
 </script>
