@@ -47,7 +47,7 @@
                 :style="'background-image: url(' + (post.img ? base_url + post.img.url : '') + ')'">
             </div>
             <h1 class="relative text-4xl">{{ post.title }} <Share /></h1>
-            <p class="opacity-40">{{ formatDate(post.publishedAt.substring(0, 10)) }} • 0 просмотров</p>
+            <p class="opacity-40">{{ post.publishedAt ? formatDate(post.publishedAt.substring(0, 10)) : 'Дата не доступна' }} • 0 просмотров</p>
             <div v-html="mark"></div>
         </div>
     </main>
