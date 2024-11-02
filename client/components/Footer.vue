@@ -3,8 +3,8 @@
     <div class="mx-auto w-full py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
-              <a href="http://825f3fb1e2d0.vps.myjino.ru/" class="flex items-center">
-                  <img src="http://825f3fb1e2d0.vps.myjino.ru/uploads/balanced_diet_686b9878eb.ico" class="h-8 me-3" alt="FlowBite Logo" />
+              <a href="http://panel.825f3fb1e2d0.vps.myjino.ru/" class="flex items-center">
+                  <img src="http://panel.825f3fb1e2d0.vps.myjino.ru/uploads/balanced_diet_686b9878eb.ico" class="h-8 me-3" alt="FlowBite Logo" />
                   <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">NuxtVerse</span>
               </a>
           </div>
