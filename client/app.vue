@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-  const base = 'http://panel.825f3fb1e2d0.vps.myjino.ru' 
+  const base = 'http://localhost:1337' 
   const api = await $fetch(`${base}/api/config?populate=*`)
   const config = api.data
 
@@ -21,7 +21,7 @@
       { rel: 'icon', type: 'image/x-icon', href: base+config.favicon.url },
     ],
     bodyAttrs: {
-      class: 'container mx-auto'
+      class: 'container mx-auto bg-white dark:bg-gray-900'
     },
     head: {
       script: [

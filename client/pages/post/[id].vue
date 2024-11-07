@@ -56,10 +56,25 @@ import MarkdownIt from "markdown-it";
 const markdown = new MarkdownIt();
 
 const { id } = useRoute().params
-const base_url = 'http://panel.825f3fb1e2d0.vps.myjino.ru'
-const api = await $fetch(`http://panel.825f3fb1e2d0.vps.myjino.ru/api/posts/${id}?populate=*`);
+const base_url = 'http://localhost:1337'
+const api = await $fetch(`http://localhost:1337/api/posts/${id}?populate=*`);
 const post = api.data;
 const mark = markdown.render(post.body);
+
+const viewsCount = ref(post.views)
+
+async function views() {
+    const response = await $fetch(`http://localhost:1337/api/posts/${id}`, {
+        method: "PUT",
+        body: {
+            data: {
+                views: viewsCount.value + 1 // Увеличиваем количество просмотров
+            }
+        }
+    });
+}
+
+onMounted(views())
 
 
 
