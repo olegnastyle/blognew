@@ -57,14 +57,14 @@ const markdown = new MarkdownIt();
 
 const { id } = useRoute().params
 const base_url = 'http://localhost:1337'
-const api = await $fetch(`http://localhost:1337/api/posts/${id}?populate=*`);
+const api = await $fetch(`http://panel.615f68b9663f.vps.myjino.ru/api/posts/${id}?populate=*`);
 const post = api.data;
 const mark = markdown.render(post.body);
 
 const viewsCount = ref(post.views)
 
 async function views() {
-    const response = await $fetch(`http://localhost:1337/api/posts/${id}`, {
+    const response = await $fetch(`http://panel.615f68b9663f.vps.myjino.ru/api/posts/${id}`, {
         method: "PUT",
         body: {
             data: {

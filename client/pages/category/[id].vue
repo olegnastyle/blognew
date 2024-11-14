@@ -29,7 +29,7 @@
 <script setup>
   const base_url = "http://localhost:1337"
   const { id } = useRoute().params
-  const api = await $fetch(`http://localhost:1337/api/categories/${id}?populate=posts.img&populate=posts.categories`)
+  const api = await $fetch(`http://panel.615f68b9663f.vps.myjino.ru/api/categories/${id}?populate=posts.img&populate=posts.categories`)
   const posts = api.data.posts
   const displayedPosts = ref(posts.slice(0, 12)) // отображаем первые 12 статей
   const loadMore = () => displayedPosts.value = posts.slice(0, displayedPosts.value.length + 4) // добавляем еще 4
